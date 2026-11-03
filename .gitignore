@@ -50,5 +50,8 @@ build/
 ### macOS ###
 .DS_Store
 
+### 本地配置（含密钥，禁止提交） ###
+config.properties
+
 ### Claude Code ###
 .claude/settings.local.json

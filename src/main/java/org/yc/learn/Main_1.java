@@ -1,6 +1,7 @@
 package org.yc.learn;
 
-import dev.langchain4j.model.openai.OpenAiChatModel;
+import dev.langchain4j.community.model.dashscope.QwenChatModel;
+import dev.langchain4j.model.chat.ChatModel;
 
 /**
  * @author zhengyanchuang
@@ -12,10 +13,17 @@ public class Main_1 {
 
 
     public static void main(String[] args) {
-        OpenAiChatModel model = OpenAiChatModel.builder()
-                .baseUrl("http://langchain4j.dev/demo/openai/v1")
-                .apiKey("demo")
-                .modelName("gpt-4o-mini")
+        String qwApiKey = AppConfig.apiKey();
+        String modelName = AppConfig.modelName();
+        System.out.println("Model Name: " + modelName);
+
+        ChatModel qwenModel = QwenChatModel.builder()
+                .apiKey(qwApiKey)
+                .modelName(modelName)
+                .isMultimodalModel(AppConfig.isMultimodal())
                 .build();
+
+        String response = qwenModel.chat("你是什么模型");
+        System.out.println("Response: " + response);
     }
 }
