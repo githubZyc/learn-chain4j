@@ -1,5 +1,12 @@
 package org.yc.learn.chat;
 
+import dev.langchain4j.community.model.dashscope.QwenChatModel;
+import dev.langchain4j.memory.ChatMemory;
+import dev.langchain4j.memory.chat.MessageWindowChatMemory;
+import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.service.AiServices;
+import org.yc.learn.AppConfig;
+
 /**
  * @author zhengyanchuang
  * @version 1.0
@@ -7,4 +14,34 @@ package org.yc.learn.chat;
  * @date 2026/11/3 16:02
  */
 public class ServiceWithPersistentMemoryExample {
+
+    interface Assistant {
+
+        String chat(String message);
+    }
+
+    public static void main(String[] args) {
+        ChatMemory chatMemory = MessageWindowChatMemory.builder()
+                .maxMessages(10)
+                .chatMemoryStore(new PersistentChatMemoryStore())
+                .build();
+
+        String qwApiKey = AppConfig.apiKey();
+        String modelName = AppConfig.modelName();
+        System.out.println("Model Name: " + modelName);
+
+        ChatModel model = QwenChatModel.builder()
+                .apiKey(qwApiKey)
+                .modelName(modelName)
+                .isMultimodalModel(true)
+                .build();
+
+        Assistant assistant = AiServices.builder(Assistant.class)
+                .chatModel(model)
+                .chatMemory(chatMemory)
+                .build();
+
+        String answer = assistant.chat("Hello! My name is Klaus.");
+        System.out.println(answer); // Hello Klaus! How can I assist you today?
+    }
 }
