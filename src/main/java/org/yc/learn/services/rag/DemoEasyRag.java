@@ -12,13 +12,13 @@ import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
+import static dev.langchain4j.data.document.loader.FileSystemDocumentLoader.loadDocument;
 import org.yc.learn.AppConfig;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
-import static dev.langchain4j.data.document.loader.FileSystemDocumentLoader.loadDocument;
 
 /**
  * @author zhengyanchuang
