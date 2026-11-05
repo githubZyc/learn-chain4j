@@ -1,5 +1,8 @@
 package org.yc.learn;
 
+import dev.langchain4j.community.model.dashscope.QwenChatModel;
+import dev.langchain4j.community.model.dashscope.QwenStreamingChatModel;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -17,6 +20,16 @@ public final class AppConfig {
     private static final Properties PROPS = load();
 
     private AppConfig() {
+    }
+
+    public static QwenChatModel qwenChatModel() {
+        return QwenChatModel.builder().apiKey(apiKey()).modelName(modelName())
+                .isMultimodalModel(true).build();
+    }
+
+    public static QwenStreamingChatModel qwenStreamingChatModel() {
+        return QwenStreamingChatModel.builder().apiKey(apiKey()).modelName(modelName())
+                .isMultimodalModel(true).build();
     }
 
     public static String apiKey() {
