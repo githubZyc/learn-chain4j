@@ -51,6 +51,13 @@
             <artifactId>langchain4j-agentic</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-qdrant</artifactId>
+        </dependency>
+
+
+
     </dependencies>
 
 </project>
