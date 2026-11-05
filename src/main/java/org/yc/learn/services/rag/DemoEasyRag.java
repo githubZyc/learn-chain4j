@@ -66,15 +66,26 @@ public class DemoEasyRag {
         // 1. 加载要做 RAG 的文档（.md 会被默认的 TextDocumentParser 当纯文本读取）
         Document document = loadDocument(DOCUMENT_PATH);
 
-        // 2. 创建一个能访问这些文档的助手
-        Assistant assistant = AiServices.builder(Assistant.class)
-                .chatModel(AppConfig.qwenChatModel())
-                .chatMemory(MessageWindowChatMemory.withMaxMessages(10))
-                .contentRetriever(createContentRetriever(List.of(document)))
-                .build();
-
-        // 3. 开始对话
-        startConversationWith(assistant);
+        //Document.text() 返回 Document 的文本
+        //Document.metadata() 返回 Document 的 Metadata（参见下面的 “Metadata” 部分）
+        //Document.toTextSegment() 将 Document 转换为 TextSegment（参见下面的 “TextSegment” 部分）
+        //Document.from(String, Metadata) 从文本和 Metadata 创建一个 Document
+        //Document.from(String) 从文本创建一个带有空 Metadata 的 Document
+//        System.out.println(document.text());
+        System.out.println(document.metadata());
+        System.out.println(document.toTextSegment());
+        System.out.println(Document.from("This is a test", document.metadata()));
+        System.out.println(Document.from("This is a test"));
+//
+//        // 2. 创建一个能访问这些文档的助手
+//        Assistant assistant = AiServices.builder(Assistant.class)
+//                .chatModel(AppConfig.qwenChatModel())
+//                .chatMemory(MessageWindowChatMemory.withMaxMessages(10))
+//                .contentRetriever(createContentRetriever(List.of(document)))
+//                .build();
+//
+//        // 3. 开始对话
+//        startConversationWith(assistant);
     }
 
     /**
